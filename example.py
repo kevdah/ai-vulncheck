@@ -6,7 +6,6 @@ def calculate_sum(a, b):
 
 # Function 2: Vulnerable function that executes a shell command (injection risk)
 def delete_file(filename):
-    print("test")
     # This line is vulnerable to command injection
     os.system(f"rm {filename}")
 
