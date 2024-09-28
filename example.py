@@ -12,6 +12,7 @@ def delete_file(filename):
 
 # Function 3: Safe function that checks if a string is a palindrome
 def is_palindrome(s):
+    # trigger off by one error in GH actions
     return s == s[::-1]
 
 # Example usage
