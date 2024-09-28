@@ -3,7 +3,7 @@ import json
 
 def process_changed_methods():
     # Get the two most recent commits in the repository
-    repo = Repository('../../', only_modifications_with_file_types=['.py']).traverse_commits()
+    repo = Repository('.', only_modifications_with_file_types=['.py']).traverse_commits()
     
     # Retrieve commits in reverse order (so the latest commit is first)
     commits = list(repo)[-2:]
