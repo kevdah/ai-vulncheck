@@ -2,6 +2,7 @@ import os
 
 # Function 1: Safe function that calculates the sum of two numbers
 def calculate_sum(a, b):
+    print("calculating sum of two variables")
     return a + b
 
 # Function 2: Vulnerable function that executes a shell command (injection risk)
