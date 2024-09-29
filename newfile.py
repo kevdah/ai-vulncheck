@@ -14,8 +14,9 @@ def bad_sql_query(user_id):
     return cursor.fetchall()
 
 
-def command_exec(filename):
+def command_exec():
     # Vulnerable to command injection
+    input("Enter filename:")
     os.system(f"cat {filename}")
 
 
