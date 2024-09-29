@@ -11,13 +11,14 @@ def process_changed_methods():
         print("Not enough commits to compare.")
         return
 
-    latest_commit = commits[0]
-    second_latest_commit = commits[1]
+    old_commit = commits[0]
+    this_commit = commits[1]
+    print(f"comparing {this_commit.hash} against {old_commit.hash}")
     method_changes = {}
 
     #print(f"Analyzing changes between latest commit ({latest_commit.hash}) and previous commit ({second_latest_commit.hash})")
 
-    for modification in latest_commit.modified_files:
+    for modification in this_commit.modified_files:
         # Only process Python files
         if modification.filename.endswith('.py'):
             #print(f"Processing file: {modification.filename}")
@@ -29,16 +30,18 @@ def process_changed_methods():
                 method_json = process_method(method, modification)
                 method_changes['functions'] = [method_json] if not 'functions' in method_changes else method_changes['functions'].append(method_json)
     output_json = json.dumps(method_changes)
-    print(output_json)
     return output_json
 
 
 def process_method(method, filechange):
-    method_name = method.name
-    method_code = '\n'.join(filechange.source_code.splitlines()[method.start_line-1:method.end_line+1]) if filechange.source_code else "Source code not available"
+    s_line = method.start_line
+    e_line = method.end_line
+    method_code = '\n'.join(filechange.source_code.split('\n')[s_line-1:e_line]) if filechange.source_code else "Source code not available"
     
     # Return JSON structure for the method
-    return {method_name: method_code}
+    return {method.name: method_code}
 
 if __name__ == "__main__":
-    process_changed_methods()
+    method_changes = process_changed_methods()
+    with open("function_changes.json", "w") as f:
+        f.write(method_changes)
