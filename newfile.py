@@ -2,12 +2,13 @@ import os
 import pickle
 import sqlite3
 
-def bad_sql_query(user_id):
+def bad_sql_query():
     # Vulnerable query construction
     conn = sqlite3.connect('example.db')
     cursor = conn.cursor()
 
     # Directly injecting user input into SQL query (BAD PRACTICE)
+    input("Enter user ID:")
     query = f"SELECT * FROM users WHERE id = {user_id};"
     cursor.execute(query)
 
