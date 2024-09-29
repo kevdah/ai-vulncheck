@@ -28,7 +28,13 @@ def process_changed_methods():
                 #print(f"Modified Method: {method.name}")
                 # Get JSON structure
                 method_json = process_method(method, modification)
-                method_changes['functions'] = [method_json] if not 'functions' in method_changes else method_changes['functions'].append(method_json)
+                
+                # Check if 'functions' key exists, if not, initialize it as an empty list
+                if 'functions' not in method_changes:
+                    method_changes['functions'] = []
+            
+                # Append the method_json to the 'functions' list
+                method_changes['functions'].append(method_json)
     output_json = json.dumps(method_changes)
     return output_json
 
