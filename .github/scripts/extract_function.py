@@ -15,12 +15,13 @@ def process_changed_methods():
     this_commit = commits[1]
     print(f"comparing {this_commit.hash} against {old_commit.hash}")
     method_changes = {}
+    supported_langs = ('.py', '.java')
 
     #print(f"Analyzing changes between latest commit ({latest_commit.hash}) and previous commit ({second_latest_commit.hash})")
 
     for modification in this_commit.modified_files:
         # Only process Python files
-        if modification.filename.endswith('.py'):
+        if modification.filename.endswith(supported_langs):
             #print(f"Processing file: {modification.filename}")
 
             # Parsing the old and new methods using the diff
