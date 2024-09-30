@@ -2,8 +2,9 @@ from pydriller import Repository
 import json
 
 def process_changed_methods():
+    supported_langs = ('.py', '.java')
     # Get the two most recent commits in the repository
-    repo = Repository('.', only_modifications_with_file_types=['.py']).traverse_commits()
+    repo = Repository('.', only_modifications_with_file_types=list(supported_langs)).traverse_commits()
     
     # Retrieve commits in reverse order (so the latest commit is first)
     commits = list(repo)[-2:]
@@ -15,7 +16,6 @@ def process_changed_methods():
     this_commit = commits[1]
     print(f"comparing {this_commit.hash} against {old_commit.hash}")
     method_changes = {}
-    supported_langs = ('.py', '.java')
 
     #print(f"Analyzing changes between latest commit ({latest_commit.hash}) and previous commit ({second_latest_commit.hash})")
 
