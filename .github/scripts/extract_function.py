@@ -2,7 +2,7 @@ from pydriller import Repository
 import json
 
 def process_changed_methods():
-    supported_langs = ('.py', '.java')
+    supported_langs = ['.py', '.java']
     # Get the two most recent commits in the repository
     repo = Repository('.', only_modifications_with_file_types=list(supported_langs)).traverse_commits()
     
@@ -20,8 +20,10 @@ def process_changed_methods():
     #print(f"Analyzing changes between latest commit ({latest_commit.hash}) and previous commit ({second_latest_commit.hash})")
 
     for modification in this_commit.modified_files:
+        lang = '.' + modification.filename.split('.')[-1]
         # Only process Python files
-        if modification.filename.endswith(supported_langs):
+        if lang in supported_langs:
+            lang = lang[1:]  # Remove the dot
             #print(f"Processing file: {modification.filename}")
 
             # Parsing the old and new methods using the diff
@@ -31,11 +33,11 @@ def process_changed_methods():
                 method_json = process_method(method, modification)
                 
                 # Check if 'functions' key exists, if not, initialize it as an empty list
-                if 'functions' not in method_changes:
-                    method_changes['functions'] = []
+                if lang not in method_changes:
+                    method_changes[lang] = []
             
                 # Append the method_json to the 'functions' list
-                method_changes['functions'].append(method_json)
+                method_changes[lang].append(method_json)
     output_json = json.dumps(method_changes)
     return output_json
 
