@@ -1,0 +1,55 @@
+JS Vulnerable:
+
+# Remote code execution
+function example() {
+  var userCode = prompt("Enter code to execute: ");
+  eval(userCode);
+}
+
+# Cross Site scripting (depending on if the comment is sanitized)
+function displayComment(comment) {
+    document.body.innerHTML = "<p>" + comment + "</p>";
+}
+
+# Missing access control checks
+function getUserData(userId) {
+    fetch(`/users/${userId}`).then(response => response.json());
+}
+
+JS Not vulnerable:
+function add(nbr1, nbr2) {
+    const result = nbr1 + nbr2;
+    return result;
+}
+
+function factorial(n) {
+  return n < 2 ? 1 : n * fac(n - 1);
+};
+
+PHP vulnerable:
+# Cross site scripting
+function showMessage($message) {
+    echo "<div>$message</div>";
+}
+
+# SQL injection
+function getUser($username) {
+    $query = "SELECT * FROM users WHERE username = '$username'";
+    mysqli_query($conn, $query);
+}
+
+PHP not vulnerable:
+function myMessage() {
+  echo "Hello world!";
+}
+
+Python vulnerable:
+# Command injection
+def delete_file(filepath):
+    os.exec('rm ' + filepath)
+
+Python not vulnerable:
+def square(n):
+    result = n * n
+    print(result)
+    return result
