@@ -13,9 +13,6 @@ def delete_file(filename):
 def is_palindrome(s):
     return s == s[::-1]
 
-def unsafe():
-    os.exec(f'rm {input('enter file to delete:')}')
-
 # Example usage
 print("Sum of 10 and 20:", calculate_sum(10, 20))
 
