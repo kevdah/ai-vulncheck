@@ -26,6 +26,28 @@ function factorial(n) {
   return n < 2 ? 1 : n * fac(n - 1);
 };
 
+JS From test set:
+Vuln:
+return(A^-1)>>>0};Editor.writeGraphModelToPng=function(l,A,N,X,U){function Z(pa,xa){var Ca=qa;qa+=xa;return pa.substring(Ca,qa)}function ba(pa){pa=Z(pa,4);return pa.charCodeAt(3)+(pa.charCodeAt(2)<<8)+(pa.charCodeAt(1)<<16)+(pa.charCodeAt(0)<<24)}function ia(pa){return String.fromCharCode(pa>>24&255,pa>>16&255,pa>>8&255,pa&255)}l=l.substring(l.indexOf(",")+1);l=window.atob?atob(l):Base64.decode(l,!0);var qa=0;if(Z(l,8)!=String.fromCharCode(137)+"PNG"+String.fromCharCode(13,10,26,10))null!=U&&U();
+
+Nonvuln:
+  withTextFontShape(fontShape) {
+    return this.extend({
+      fontShape,
+      font: ""
+    });
+  }
+
+                } function h(e) {
+                    const n = e[0], a = t.substring(e.index), i = m(x, e, a); if (!i) return ee; const r = x
+                        ; x.endScope && x.endScope._wrap ? (d(),
+                            g(n, x.endScope._wrap)) : x.endScope && x.endScope._multi ? (d(),
+                                u(x.endScope, e)) : r.skip ? A += n : (r.returnEnd || r.excludeEnd || (A += n),
+                                    d(), r.excludeEnd && (A = n)); do {
+                                        x.scope && S.closeNode(), x.skip || x.subLanguage || (C += x.relevance), x = x.parent
+                                    } while (x !== i.parent); return i.starts && b(i.starts, e), r.returnEnd ? 0 : n.length
+                }
+
 PHP vulnerable:
 # Cross site scripting
 function showMessage($message) {
